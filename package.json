@@ -1,0 +1,31 @@
+{
+    "name": "ifx-4gl",
+    "displayName": "ifx-4gl",
+    "description": "Language Informix 4gl.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.29.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "4gl",
+            "aliases": ["ifx-4gl", "4gl"],
+            "extensions": [".4gl"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "4gl",
+            "scopeName": "source.4gl",
+            "path": "./syntaxes/4gl.tmLanguage.json"
+        }],
+        "snippets": [
+            {
+                "language": "4gl",
+                "path": "./snippets/snippets.json"
+            }
+        ]
+    }
+}
