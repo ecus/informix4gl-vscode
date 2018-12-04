@@ -2,7 +2,7 @@
     "name": "ifx-4gl",
     "displayName": "ifx-4gl",
     "description": "Language Informix 4gl.",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "engines": {
         "vscode": "^1.29.0"
     },
