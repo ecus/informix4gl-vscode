@@ -295,7 +295,7 @@
 				},
 				{
 					"comment": "Keywords2",
-					"match": "(?i)(sleep|options|input|no wrap|menu|command|end menu|on key|after|field|input|before|rowrow|infield|next field|lock mode)",
+					"match": "(?i)(sleep|options|input|no wrap|menu|command|end menu|on key|after|field|input|before|rowrow|infield|next field|lock mode|unload to)",
 					"name": "keyword.other.source.4GL"
 				},
 				{

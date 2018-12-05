@@ -2,34 +2,35 @@
     "name": "ifx-4gl",
     "displayName": "ifx-4gl",
     "description": "Language Informix 4gl.",
-    "version": "0.4.0",
+    "publisher": "eurrutia",
+    "author": {
+        "name": "Erik Urrutia Santamaria",
+        "email": "e_urrutia@outlook.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ecus/informix4gl-vscode.git"
+    },
+    "version": "0.0.1",
     "engines": {
         "vscode": "^1.29.0"
     },
     "categories": [
         "Programming Languages"
     ],
+    "icon": "images/4gl.png",
     "contributes": {
-        "languages": [
-            {
-                "id": "4gl",
-                "aliases": [
-                    "ifx-4gl",
-                    "4gl"
-                ],
-                "extensions": [
-                    ".4gl"
-                ],
-                "configuration": "./language-configuration.json"
-            }
-        ],
-        "grammars": [
-            {
-                "language": "4gl",
-                "scopeName": "source.4gl",
-                "path": "./syntaxes/4gl.tmLanguage.json"
-            }
-        ],
+        "languages": [{
+            "id": "4gl",
+            "aliases": ["ifx-4gl", "4gl"],
+            "extensions": [".4gl"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "4gl",
+            "scopeName": "source.4gl",
+            "path": "./syntaxes/4gl.tmLanguage.json"
+        }],
         "snippets": [
             {
                 "language": "4gl",
