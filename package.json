@@ -45,6 +45,16 @@
                 "language": "4gl",
                 "path": "./snippets/snippets.json"
             }
-        ]
+        ],
+        "configurationDefaults": {
+            "[4gl]": {
+                "files.encoding": "windows1252",
+                "files.insertFinalNewline": true
+            },
+            "[per]": {
+                "files.encoding": "windows1252",
+                "files.insertFinalNewline": true
+            }
+        }
     }
 }
