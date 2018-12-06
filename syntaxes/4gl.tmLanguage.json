@@ -225,6 +225,11 @@
 							"include": "#string_interpolation"
 						}
 					]
+				},
+				{
+					"comment": "Double quoted string",
+					"match": "(\\\"(?:\\\\\"|.)*?\\\")",
+					"name": "string.double.source.4GL"
 				}
 			]
 		},
@@ -249,7 +254,7 @@
 			]
 		},
 		"select-query": {
-			"match": "(?i:\\b(select(\\s+distinct)?|before insert|cancel\\s+|insert\\s+(ignore\\s+)?into|into temp|update|delete|from|set|where|group\\sby|or|like|and|between|union(\\s+all)?|having|order\\sby|limit|(inner|cross)\\s+join|join|straight_join|(left|right)(\\s+outer)?\\s+join|natural(\\s+(left|right)(\\s+outer)?)?\\s+join)\\b)",
+			"match": "(?i:\\b(select(\\s+distinct)?|distinct|before insert|cancel\\s+|insert\\s+(ignore\\s+)?into|into temp|update|delete|from|set|where|group\\sby|or|like|and|between|union(\\s+all)?|having|order\\sby|limit|(inner|cross)\\s+join|join|straight_join|(second|year|minute)\\s+to\\s+(second|year|minute)|(left|right)(\\s+outer)?\\s+join|natural(\\s+(left|right)(\\s+outer)?)?\\s+join)\\b)",
 			"name": "keyword.other.DML.4gl"
 		},
 		"funcion-declaracion": {
@@ -295,7 +300,7 @@
 				},
 				{
 					"comment": "Keywords2",
-					"match": "(?i)(sleep|options|attributes|attributes|input|no wrap|(\\s|^)menu|command|end menu|(\\s|^)on key|after|field|input|before|row|infield|next field|lock mode|unload to)",
+					"match": "(?i)(sleep|options|attributes|attribute|input|no wrap|(\\s|^)menu|command|end menu|(\\s|^)on every|(\\s|^)on key|(\\s|^)last key|after|group|skip|lines|field|input|before|row|infield|next field|lock mode)",
 					"name": "keyword.other.source.4GL"
 				},
 				{
@@ -305,7 +310,7 @@
 				},
 				{
 					"comment": "Keywords",
-					"match": "(?i)( between |call(?=\\s+|$)|form(?=\\s+|$)|comment(?=\\s+|$)| clipped|(\\s|^)close\\s+(form|window)*|interrupt|(\\s|^)create\\s+(temp)\\s+?(table|index|unique index)(?=\\s+|$)|database |\\s+returning |declare\\s+|delete(?=\\s|$)|display\\s+|by name\\s+|((\\s|^)drop\\s+(table|index)(\\s|$))|((\\s|^)fetch((\\s+|$)|(\\s+(first|last)\\s+)))|(\\s|^)from(\\s+|$)|(\\s+|^)free\\s+|group by\\s|(\\s+|^)(desc|asc)(\\s+|$)|(\\s|^)insert\\s+into(\\s+|$)|((scroll)* cursor(?=\\s)(\\swith hold)*)|((top|right|bottom|left)\\s+margin)|page length|(\\s|^)open\\s+(form|window|clear|next)*|(\\s|^)prepare |(^|\\s)prompt\\s|(^|\\s)insert key\\s|(^|\\s)line\\s|clear|(^|\\s)form\\s|(^|\\s)input by name(\\s|$)|((start|finish)\\s+report)|(\\s|^)select(\\s+|$)|(\\s|^)union(\\s+|$)| in | into temp | spaces|(\\s|^)update(\\s+|$)|(\\s|^)where(\\s+|$)|(\\s|^)output(?=\\s|$)|(?<=\\s)to(?=\\s|$)|order by|format( |$)|(first\\s+)*page header|before group of|on (every|last) row|after group of| using |begin\\s+work|commit\\s+work|with no log|rollback\\s+work|(\\s+|^)values|((\\s|^)whenever\\s+(any\\s+)?error\\s+(continue|stop)(\\s|$))|(\\s|^)run\\s+|end input)",
+					"match": "(?i)( between |call(?=\\s+|$)|form(?=\\s+|$)|comment(?=\\s+|$)| clipped|(\\s|^)close\\s+(form|window)*|interrupt|(\\s|^)create\\s+(temp)\\s+?(table|index|unique index)(?=\\s+|$)|database |\\s+returning |declare\\s+|delete(?=\\s|$)|display\\s+|by name\\s+|((\\s|^)drop\\s+(table|index)(\\s|$))|((\\s|^)fetch((\\s+|$)|(\\s+(first|last)\\s+)))|(\\s|^)from(\\s+|$)|(\\s+|^)free\\s+|group by\\s|(\\s+|^)(desc|asc)(\\s+|$)|(\\s|^)insert\\s+into(\\s+|$)|((scroll)* cursor(?=\\s)(\\swith hold)*)|((top|right|bottom|left)\\s+margin)|page length|(\\s|^)order\\s+external\\s+by*|(\\s|^)open\\s+(form|window|clear|next)*|(\\s|^)prepare |(^|\\s)prompt\\s|(^|\\s)insert key\\s|(^|\\s)line\\s|clear|(^|\\s)form\\s|(^|\\s)input by name(\\s|$)|((start|finish)\\s+report)|(\\s|^)select(\\s+|$)|(\\s|^)union(\\s+|$)| in | into temp | spaces|(\\s|^)update(\\s+|$)|(\\s|^)where(\\s+|$)|(\\s|^)output(?=\\s|$)|(?<=\\s)to(?=\\s|$)|order by|format( |$)|(first\\s+)*page header|before group of|on (every|last) row|after group of| using |begin\\s+work|commit\\s+work|with no log|rollback\\s+work|(\\s+|^)values|((\\s|^)whenever\\s+(any\\s+)?error\\s+(continue|stop)(\\s|$))|(\\s|^)run\\s+|end input)",
 					"name": "keyword.other.source.4GL"
 				},
 				{
@@ -315,7 +320,7 @@
 				},
 				{
 					"comment": "Storage types",
-					"match": "(?i)(\\schar(?=[\\s\\(,$]))|((\\s|^)date|\\s+decimal|define\\s+|\\s+smallint|\\s+datetime|\\s+integer|\\s+float|let |\\s+record\\s+|like |(end)*\\s+record|(((^|\\s+)|(end\\s+))globals)|\\s+array|\\s+like| of |defer interrupt)",
+					"match": "(?i)(\\schar(?=[\\s\\(,$]))|((\\s|^)date|\\s+decimal|define\\s+|\\s+smallint|datetime|\\s+integer|\\s+float|let |\\s+record\\s+|like |(end)*\\s+record|(((^|\\s+)|(end\\s+))globals)|\\s+array|\\s+like| of |defer interrupt)",
 					"name": "storage.type.source.4GL"
 				},
 				{
@@ -325,12 +330,22 @@
 				},
 				{
 					"comment": "Some functions",
-					"match": "(?i)((?<=\\s)(sum|count|weekday|mdy|upshift|upper|lower|avg|nvl|max|min|length|day|month|year|p_open|p_close|fgl_lastkey|fgl_keyval|arr_curr|scr_line|set_count)(?=\\s*\\(.*?\\)))",
+					"match": "(?i)((sum|count|decode|weekday|mdy|upper|upshift|lower|avg|nvl|max|min|length|day|month|year|p_open|p_close)(?=\\s*\\(.*?\\)))",
 					"name": "storage.type.function.source.4GL"
 				},
 				{
+					"comment": "Some functions",
+					"match": "(?i)((?<=\\s)(print|column|page|trailer))",
+					"name": "storage.type.function.source.4GL"
+				},
+				{
+					"comment": "Some functions system",
+					"match": "(?i)((fgl_lastkey|fgl_keyval|arr_curr|scr_line|set_count)(?=\\s*\\(.*?\\)))",
+					"name": "variable.parameter.function.source.4GL"
+				},
+				{
 					"comment": "Variables",
-					"match": "(?i)(time|today|message |without|defaults)",
+					"match": "(?i)((\\s|^)time|today|message |without|defaults|unload to)",
 					"name": "variable.parameter.function.source.4GL"
 				},
 				{
@@ -343,22 +358,7 @@
 					"match": "(?i)(\\s*|^)(status|sqlcode|clipped|int_flag|explain|sqlerrd|isolation|wait|today|pageno)(\\s*|^)",
 					"name": "variable.parameter.function.source.4GL"
 				},
-				{
-					"captures": {
-						"1": {
-							"name": "storage.type.function.source.4GL"
-						},
-						"2": {
-							"name": "entity.name.function.source.4GL"
-						},
-						"3": {
-							"include": "#parameter-name"
-						}
-					},
-					"comment": "Functions definitions",
-					"match": "(?i)(?<!\\w\\s)(function|report)\\s+(.*)\\s*\\((.*)\\)\n*",
-					"name": "meta.function.source.4GL"
-				},
+
 				{
 					"captures": {
 						"1": {
