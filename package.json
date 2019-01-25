@@ -28,7 +28,8 @@
                     "4gl"
                 ],
                 "extensions": [
-                    ".4gl"
+                    ".4gl",
+                    ".per"
                 ],
                 "configuration": "./language-configuration.json"
             }
