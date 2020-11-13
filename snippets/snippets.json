@@ -142,11 +142,20 @@
          "FUNCTION ${1:nombrefuncion}(${2:parametros})",
          "\tDEFINE \tl_resp\tCHAR(100),",
          "\t\t\t${3:var}\t${4:tipo}",
-         "\t\t${5:#codigo}",
+         "\t${5:#codigo}",
          "\tRETURN l_resp",
          "END FUNCTION\n"
       ],
       "description": "Declara funcion basica"
+	},
+	"globals": {
+      "prefix": "globals",
+      "body": [
+         "GLOBALS",
+         "\t${1:#codigo}",
+         "END GLOBALS\n"
+      ],
+      "description": "Declara variables globales"
    },
    "record": {
       "prefix": "record",

@@ -1,5 +1,7 @@
 {
 	"name": "Informix 4gl",
+	"foldingStartMarker": "(\\{\\s*(\/\/.*)?$|^\\s*\/\/ \\{\\{\\{)",
+   "foldingStopMarker": "^\\s*(\\}|\/\/ \\}\\}\\}$)",
 	"patterns": [
 		{
 			"include": "#keywords"
