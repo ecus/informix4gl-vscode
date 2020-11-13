@@ -24,13 +24,12 @@ class SwmfConfigDocumentSymbolProvider {
     }
     formatTable(cmd) {
         return cmd
-            .replace(/(\w+) temp table /i, "")
+            .replace(/i(\w+)\\s+temp table\\s+/gi, "")
             .trim();
     }
     formatIntoTable(cmd) {
         return cmd
-            .replace(/(\w+) INTO TEMP /i, "")
-            //.replace(/ .*/,'')
+            .replace(/i(\w+)\\s+into temp\\s+/gi, "")
             .trim();
     }
     provideDocumentSymbols(document, _token) {

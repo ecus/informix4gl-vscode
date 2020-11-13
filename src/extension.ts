@@ -30,14 +30,13 @@ class SwmfConfigDocumentSymbolProvider
 
   private formatTable(cmd: string): string {
     return cmd
-      .replace(/(\w+) temp table /i, "")
+      .replace(/i(\w+)\\s+temp table\\s+/gi, "")
       .trim();
   }
 
   private formatIntoTable(cmd: string): string {
-    return cmd
-      .replace(/(\w+) INTO TEMP /i, "")
-      //.replace(/ .*/,'')
+	return cmd
+		.replace(/i(\w+)\\s+into temp\\s+/gi, "")
       .trim();
   }
 
