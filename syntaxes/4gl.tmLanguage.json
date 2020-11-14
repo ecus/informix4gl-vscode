@@ -342,7 +342,7 @@
 				},
 				{
 					"comment": "Some functions system",
-					"match": "(?i)((fgl_lastkey|fgl_keyval|arr_curr|scr_line|set_count)(?=\\s*\\(.*?\\)))",
+					"match": "(?i)((fgl_lastkey|fgl_keyval|arr_curr|scr_line|set_count|arg_val)(?=\\s*\\(.*?\\)))",
 					"name": "variable.parameter.function.source.4GL"
 				},
 				{
