@@ -62,6 +62,11 @@ const BUILTIN_FUNCTIONS = [
     { name: "CURSOR_NAME", signature: "CURSOR_NAME()", doc: "Returns the name of the current cursor in a FOREACH loop." },
     { name: "SQLEXIT", signature: "SQLEXIT(code INTEGER)", doc: "Closes the database connection and returns the specified exit code." },
     { name: "TRIM", signature: "TRIM(source CHAR)", doc: "Removes leading and trailing whitespace from a string." },
+    // Report aggregate functions
+    { name: "PERCENT", signature: "PERCENT(*)", doc: "Returns the percentage of rows in a report group (report only)." },
+    // Additional functions from official docs
+    { name: "LOCATE", signature: "LOCATE(variable, location)", doc: "Specifies the storage location for a TEXT or BYTE variable (IN MEMORY or IN FILE)." },
+    { name: "VALIDATE", signature: "VALIDATE(variable, LIKE table.column)", doc: "Validates a variable against the SYSCOLVAL values for the specified column." },
 ];
 const KEYWORDS = [
     // Control flow
@@ -124,13 +129,40 @@ const KEYWORDS = [
     "CALL", "RETURNING",
     "RUN",
     "LOAD", "UNLOAD",
+    "LOCATE", "VALIDATE",
+    // Screen arrays
+    "DISPLAY ARRAY", "END DISPLAY",
+    "INPUT ARRAY", "END INPUT",
+    "SCROLL", "WITHOUT DEFAULTS",
+    "EXIT PROGRAM", "EXIT INPUT", "EXIT CONSTRUCT", "EXIT MENU", "EXIT DISPLAY",
+    "CONTINUE INPUT", "CONTINUE CONSTRUCT", "CONTINUE MENU", "CONTINUE DISPLAY",
+    "SHOW OPTION", "HIDE OPTION", "NEXT OPTION",
+    "ON IDLE",
+    // Dynamic SQL
+    "EXECUTE IMMEDIATE", "PUT", "FLUSH",
+    // Locking/Isolation
+    "LOCK TABLE", "UNLOCK TABLE",
+    "SET ISOLATION", "SET LOCK MODE", "SET EXPLAIN",
+    // Report extras
+    "OUTPUT TO REPORT", "NEED", "PAUSE",
+    "SKIP TO TOP OF PAGE", "TOP OF PAGE",
     // Fields/Attributes
     "ATTRIBUTE", "ATTRIBUTES",
     "FIELD", "INFIELD", "NEXT FIELD",
     "BEFORE", "AFTER",
+    "BEFORE FIELD", "AFTER FIELD",
+    "BEFORE INPUT", "AFTER INPUT",
+    "BEFORE CONSTRUCT", "AFTER CONSTRUCT",
+    "BEFORE ROW", "AFTER ROW",
+    "BEFORE INSERT", "AFTER INSERT",
+    "BEFORE DELETE", "AFTER DELETE",
     "ON KEY",
     "BY NAME",
     "CLIPPED", "SPACES", "USING", "WORDWRAP",
+    "THROUGH", "THRU",
+    // Form spec keywords
+    "FORMONLY", "NOENTRY", "REQUIRED", "AUTONEXT", "COMMENTS",
+    "INCLUDE", "PICTURE", "SCREEN RECORD",
 ];
 const DATA_TYPES = [
     "CHAR", "VARCHAR", "NCHAR", "NVARCHAR", "STRING",

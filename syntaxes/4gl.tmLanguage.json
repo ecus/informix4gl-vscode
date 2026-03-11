@@ -124,7 +124,7 @@
 			"patterns": [
 				{
 					"comment": "WHENEVER error handling",
-					"match": "(?i)\\b(whenever\\s+(any\\s+)?error\\s+(continue|stop|call)\\b)",
+					"match": "(?i)\\b(whenever\\s+(any\\s+)?(error|sqlerror|sqlwarning|not\\s+found)\\s+(continue|stop|call|goto)\\b)",
 					"name": "keyword.control.error.4gl"
 				},
 				{
@@ -153,7 +153,7 @@
 				},
 				{
 					"comment": "Cursor statements",
-					"match": "(?i)\\b(declare|cursor|scroll\\s+cursor|with\\s+hold|open|fetch(\\s+(first|last|next|previous|prior|relative|absolute))?|close|free|prepare|execute|foreach)\\b",
+					"match": "(?i)\\b(declare|cursor|scroll\\s+cursor|with\\s+hold|open|fetch(\\s+(first|last|next|previous|prior|relative|absolute))?|close|free|prepare|execute(\\s+immediate)?|foreach|put|flush)\\b",
 					"name": "keyword.other.DML.4gl"
 				},
 				{
@@ -172,7 +172,7 @@
 			"patterns": [
 				{
 					"comment": "Screen I/O statements",
-					"match": "(?i)\\b(display(\\s+by\\s+name|\\s+form)?|input(\\s+by\\s+name)?|end\\s+input|construct(\\s+by\\s+name)?|end\\s+construct|message|error|prompt|sleep|clear(\\s+(form|screen|window))?)\\b",
+					"match": "(?i)\\b(display(\\s+array|\\s+by\\s+name|\\s+form)?|input(\\s+array|\\s+by\\s+name)?|end\\s+(input|display|construct)|construct(\\s+by\\s+name)?|message|error|prompt|sleep|scroll|clear(\\s+(form|screen|window))?)\\b",
 					"name": "keyword.other.io.4gl"
 				},
 				{
@@ -187,7 +187,7 @@
 				},
 				{
 					"comment": "Field handling",
-					"match": "(?i)\\b(field|infield|next\\s+field|before|after|on\\s+key|on\\s+every|attribute|attributes|no\\s+wrap|formonly)\\b",
+					"match": "(?i)\\b(field|infield|next\\s+field|before\\s+(field|input|construct|row|insert|delete|group)|after\\s+(field|input|construct|row|insert|delete|group)|before|after|on\\s+key|on\\s+every|on\\s+idle|without\\s+defaults|attribute|attributes|no\\s+wrap|formonly|noentry|required|autonext|screen\\s+record|show\\s+option|hide\\s+option|next\\s+option)\\b",
 					"name": "keyword.other.io.4gl"
 				}
 			]
@@ -196,7 +196,7 @@
 			"patterns": [
 				{
 					"comment": "Report statements",
-					"match": "(?i)\\b(start\\s+report|finish\\s+report|output(\\s+to)?|format|(first\\s+)?page\\s+header|page\\s+trailer|before\\s+group\\s+of|after\\s+group\\s+of|on\\s+every\\s+row|on\\s+last\\s+row|print|skip|column|page\\s+length|(top|bottom|left|right)\\s+margin)\\b",
+					"match": "(?i)\\b(start\\s+report|finish\\s+report|output(\\s+to(\\s+report)?)?|format|(first\\s+)?page\\s+header|page\\s+trailer|before\\s+group\\s+of|after\\s+group\\s+of|on\\s+every\\s+row|on\\s+last\\s+row|print|skip(\\s+to\\s+top\\s+of\\s+page)?|need|pause|column|page\\s+length|top\\s+of\\s+page|(top|bottom|left|right)\\s+margin)\\b",
 					"name": "keyword.other.report.4gl"
 				}
 			]
@@ -214,7 +214,7 @@
 			"patterns": [
 				{
 					"comment": "General keywords",
-					"match": "(?i)\\b(database|define|let|call|returning|run|set|initialize|to|of|by\\s+name|using|clipped|spaces|wordwrap|options|load|unload(\\s+to)?|lock\\s+mode|interrupt|lines|line|form|at)\\b",
+					"match": "(?i)\\b(database|define|let|call|returning|run|set|initialize|locate|validate|to|of|by\\s+name|using|clipped|spaces|wordwrap|through|thru|options|load|unload(\\s+to)?|lock\\s+(table|mode)|unlock\\s+table|set\\s+(isolation|lock\\s+mode|explain|optimization)|update\\s+statistics|grant|revoke|interrupt|lines|line|form|at|exit\\s+program|output\\s+to\\s+report)\\b",
 					"name": "keyword.other.4gl"
 				}
 			]
@@ -223,7 +223,7 @@
 			"patterns": [
 				{
 					"comment": "Data types",
-					"match": "(?i)\\b(char|varchar|nchar|nvarchar|string|integer|int|smallint|bigint|tinyint|serial|float|smallfloat|double|decimal|money|date|datetime|interval|byte|text|boolean|record|end\\s+record|array|like)\\b",
+					"match": "(?i)\\b(char(acter)?|varchar|nchar|nvarchar|string|integer|int|smallint|bigint|tinyint|serial|float|smallfloat|double(\\s+precision)?|real|decimal|dec|numeric|money|date|datetime|interval|byte|text|boolean|record|end\\s+record|array|like)\\b",
 					"name": "storage.type.4gl"
 				}
 			]
@@ -286,7 +286,7 @@
 			"patterns": [
 				{
 					"comment": "Comparison and arithmetic operators",
-					"match": "(==|!=|<>|<=|>=|<|>|=|\\+|-|\\*|/|\\|\\|)",
+					"match": "(==|!=|<>|<=|>=|<|>|=|\\+|-|\\*\\*|\\*|/|\\|\\|)",
 					"name": "keyword.operator.4gl"
 				},
 				{
