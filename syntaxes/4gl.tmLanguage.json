@@ -1,412 +1,340 @@
 {
-	"name": "Informix 4gl",
-	"foldingStartMarker": "(\\{\\s*(\/\/.*)?$|^\\s*\/\/ \\{\\{\\{)",
-   "foldingStopMarker": "^\\s*(\\}|\/\/ \\}\\}\\}$)",
+	"name": "Informix 4GL",
+	"scopeName": "source.4gl",
+	"foldingStartMarker": "(^\\s*(FUNCTION|REPORT|MAIN|GLOBALS|IF|WHILE|FOR|FOREACH|CASE|MENU|INPUT|CONSTRUCT)\\b)",
+	"foldingStopMarker": "(^\\s*END\\s+(FUNCTION|REPORT|MAIN|GLOBALS|IF|WHILE|FOR|FOREACH|CASE|MENU|INPUT|CONSTRUCT)\\b)",
 	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#statements"
-		},
-		{
-			"include": "#copiado"
-		}
+		{ "include": "#comments" },
+		{ "include": "#strings" },
+		{ "include": "#funcion-declaracion" },
+		{ "include": "#sql-dml" },
+		{ "include": "#control-flow" },
+		{ "include": "#error-handling" },
+		{ "include": "#screen-io" },
+		{ "include": "#report-keywords" },
+		{ "include": "#transactions" },
+		{ "include": "#keywords" },
+		{ "include": "#storage-types" },
+		{ "include": "#builtin-functions" },
+		{ "include": "#system-functions" },
+		{ "include": "#aggregate-functions" },
+		{ "include": "#builtin-variables" },
+		{ "include": "#display-attributes" },
+		{ "include": "#constants" },
+		{ "include": "#operators" },
+		{ "include": "#numbers" },
+		{ "include": "#record-access" },
+		{ "include": "#database-qualify" }
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [
-				{
-					"name": "keyword.control.4gl",
-					"match": "\\b(if|while|for|return)\\b"
-				}
-			]
-		},
-		"statements": {
-			"patterns": [
-				{
-					"include": "#strings"
-				},
-				{
-					"include": "#comments"
-				},
-				{
-					"include": "#select-query"
-				},
-				{
-					"include": "select-query"
-				},
-				{
-					"include": "#funcion-declaracion"
-				},
-				{
-					"include": "#palabras-reservadas"
-				}
-			]
-		},
 		"comments": {
 			"patterns": [
 				{
-					"begin": "(^[ \\t]+)?(?=--)",
-					"beginCaptures": {
-						"1": {
-							"name": "punctuation.whitespace.comment.leading.4gl"
-						}
-					},
-					"end": "(?!\\G)",
-					"patterns": [
-						{
-							"begin": "--",
-							"beginCaptures": {
-								"0": {
-									"name": "punctuation.definition.comment.4gl"
-								}
-							},
-							"end": "\\n",
-							"name": "comment.line.double-dash.4gl"
-						}
-					]
+					"name": "comment.line.double-dash.4gl",
+					"match": "--.*$"
 				},
 				{
-					"begin": "(^[ \\t]+)?(?=#)",
-					"beginCaptures": {
-						"1": {
-							"name": "punctuation.whitespace.comment.leading.4gl"
-						}
-					},
-					"end": "(?!\\G)",
-					"patterns": [
-						{
-							"begin": "#",
-							"beginCaptures": {
-								"0": {
-									"name": "punctuation.definition.comment.4gl"
-								}
-							},
-							"end": "\\n",
-							"name": "comment.line.numeral.4gl"
-						}
-					]
+					"name": "comment.line.number-sign.4gl",
+					"match": "#.*$"
 				},
 				{
-					"begin": "(^[ \\t]+)?(?=#)",
-					"beginCaptures": {
-						"1": {
-							"name": "punctuation.whitespace.comment.leading.4gl"
-						}
-					},
-					"end": "(?!\\G)",
-					"patterns": []
-				},
-				{
-					"begin": "{",
+					"name": "comment.block.4gl",
+					"begin": "\\{",
+					"end": "\\}",
 					"captures": {
-						"0": {
-							"name": "punctuation.definition.comment.4gl"
-						}
-					},
-					"end": "}",
-					"name": "comment.block.c"
+						"0": { "name": "punctuation.definition.comment.4gl" }
+					}
 				}
 			]
 		},
 		"strings": {
 			"patterns": [
 				{
-					"captures": {
-						"1": {
-							"name": "punctuation.definition.string.begin.4gl"
-						},
-						"2": {
-							"name": "punctuation.definition.string.end.4gl"
-						}
-					},
-					"match": "(')[^']*(')",
-					"name": "string.quoted.single.4gl"
-				},
-				{
-					"begin": "'",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.begin.4gl"
-						}
-					},
-					"end": "'",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.4gl"
-						}
-					},
-					"name": "string.quoted.single.4gl",
-					"patterns": [
-						{
-							"include": "#string_escape"
-						}
-					]
-				},
-				{
-					"captures": {
-						"1": {
-							"name": "punctuation.definition.string.begin.4gl"
-						},
-						"2": {
-							"name": "punctuation.definition.string.end.4gl"
-						}
-					},
-					"match": "(`)[^`\\\\]*(`)",
-					"name": "string.quoted.other.backtick.4gl"
-				},
-				{
-					"begin": "`",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.begin.4gl"
-						}
-					},
-					"end": "`",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.4gl"
-						}
-					},
-					"name": "string.quoted.other.backtick.4gl",
-					"patterns": [
-						{
-							"include": "#string_escape"
-						}
-					]
-				},
-				{
-					"captures": {
-						"1": {
-							"name": "punctuation.definition.string.begin.4gl"
-						},
-						"2": {
-							"name": "punctuation.definition.string.end.4gl"
-						}
-					},
-					"match": "(\")[^\"#]*(\")",
-					"name": "string.quoted.double.4gl"
-				},
-				{
-					"begin": "\"",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.begin.4gl"
-						}
-					},
-					"end": "\"",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.4gl"
-						}
-					},
 					"name": "string.quoted.double.4gl",
+					"begin": "\"",
+					"end": "\"",
+					"beginCaptures": { "0": { "name": "punctuation.definition.string.begin.4gl" } },
+					"endCaptures": { "0": { "name": "punctuation.definition.string.end.4gl" } },
 					"patterns": [
 						{
-							"include": "#string_interpolation"
+							"name": "constant.character.escape.4gl",
+							"match": "\\\\."
 						}
 					]
 				},
 				{
-					"begin": "%\\{",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.begin.4gl"
-						}
-					},
-					"end": "\\}",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.4gl"
-						}
-					},
-					"name": "string.other.quoted.brackets.4gl",
+					"name": "string.quoted.single.4gl",
+					"begin": "'",
+					"end": "'",
+					"beginCaptures": { "0": { "name": "punctuation.definition.string.begin.4gl" } },
+					"endCaptures": { "0": { "name": "punctuation.definition.string.end.4gl" } },
 					"patterns": [
 						{
-							"include": "#string_interpolation"
+							"name": "constant.character.escape.4gl",
+							"match": "\\\\."
 						}
 					]
-				},
-				{
-					"comment": "Double quoted string",
-					"match": "(\\\"(?:\\\\\"|.)*?\\\")",
-					"name": "string.double.source.4GL"
 				}
 			]
-		},
-		"parameter-name": {
-			"patterns": [
-				{
-					"match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))\\s+(?=\\s+)",
-					"captures": {
-						"1": {
-							"name": "storage.modifier.4gl"
-						}
-					}
-				},
-				{
-					"match": "(?x)(?:(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)\n)",
-					"captures": {
-						"1": {
-							"name": "storage.modifier.4gl"
-						}
-					}
-				}
-			]
-		},
-		"select-query": {
-			"match": "(?i:\\b(select(\\s+distinct)?|distinct|before insert|cancel\\s+|insert\\s+(ignore\\s+)?into|into temp|update|delete|from|set|where|group\\sby|or|like|and|between|union(\\s+all)?|having|order\\sby|limit|(inner|cross)\\s+join|join|straight_join|(second|year|minute)\\s+to\\s+(second|year|minute)|(left|right)(\\s+outer)?\\s+join|natural(\\s+(left|right)(\\s+outer)?)?\\s+join)\\b)",
-			"name": "keyword.other.DML.4gl"
 		},
 		"funcion-declaracion": {
-			"name": "meta.function.4gl",
-			"begin": "\\s*?(function|report|FUNCTION|REPORT)\\s+(.*)\\s*\\((.*)\\)\n*",
-			"beginCaptures": {
-				"1": {
-					"name": "storage.type.function.4gl"
-				},
-				"2": {
-					"name": "entity.name.function.4gl"
-				},
-				"3": {
-					"name": "meta.definition.function.4gl variable.parameter.function.4gl"
-				}
-			},
-			"end": "\n*\\s*?(end function|end report|END FUNCTION|END REPORT)\\s+",
-			"endCaptures": {
-				"1": {
-					"name": "storage.type.function.4gl"
-				}
-			},
-			"patterns":[
+			"patterns": [
 				{
-					"include":"#statements"
+					"comment": "Function/Report declaration",
+					"name": "meta.function.4gl",
+					"match": "(?i)^\\s*(function|report)\\s+(\\w+)\\s*\\(([^)]*)\\)",
+					"captures": {
+						"1": { "name": "storage.type.function.4gl" },
+						"2": { "name": "entity.name.function.4gl" },
+						"3": { "name": "variable.parameter.4gl" }
+					}
 				},
 				{
-					"include": "#copiado"
+					"comment": "End function/report",
+					"match": "(?i)^\\s*(end\\s+function|end\\s+report)\\b",
+					"name": "storage.type.function.4gl"
+				},
+				{
+					"comment": "MAIN block",
+					"match": "(?i)^\\s*(main)\\s*$",
+					"name": "storage.type.function.4gl"
+				},
+				{
+					"comment": "END MAIN",
+					"match": "(?i)^\\s*(end\\s+main)\\b",
+					"name": "storage.type.function.4gl"
+				},
+				{
+					"comment": "GLOBALS block",
+					"match": "(?i)^\\s*(globals|end\\s+globals)\\b",
+					"name": "storage.type.function.4gl"
 				}
 			]
 		},
-		"copiado": {
+		"control-flow": {
 			"patterns": [
 				{
-					"comment": "Operators",
-					"match": "(?i)(=|!=|\\+|-|/|<|>|,|(\\s(or|and|is|mod|not|initialize|execute)(?=(\\s|$)))|((\\s|^)set(?=\\s)))",
-					"name": "keyword.operator.source.4GL"
+					"comment": "Control flow keywords",
+					"match": "(?i)\\b(if|then|else|end\\s+if|while|end\\s+while|for|end\\s+for|foreach|end\\s+foreach|case|when|otherwise|end\\s+case|return|exit\\s+\\w+|exit|continue\\s+\\w+|continue|goto|label)\\b",
+					"name": "keyword.control.4gl"
+				}
+			]
+		},
+		"error-handling": {
+			"patterns": [
+				{
+					"comment": "WHENEVER error handling",
+					"match": "(?i)\\b(whenever\\s+(any\\s+)?error\\s+(continue|stop|call)\\b)",
+					"name": "keyword.control.error.4gl"
 				},
 				{
-					"comment": "Constants provided by de language",
-					"match": "(?i)(dirty read|null|true|false|notfound)",
-					"name": "constant.language.source.4GL"
+					"comment": "DEFER INTERRUPT/QUIT",
+					"match": "(?i)\\b(defer\\s+(interrupt|quit))\\b",
+					"name": "keyword.control.error.4gl"
+				}
+			]
+		},
+		"sql-dml": {
+			"patterns": [
+				{
+					"comment": "SQL DML keywords",
+					"match": "(?i)\\b(select(\\s+distinct)?|insert\\s+into|into\\s+temp|update|delete\\s+from|delete|from|where|group\\s+by|order\\s+by|order\\s+external\\s+by|having|union(\\s+all)?|values|between|exists|matches|like|in)\\b",
+					"name": "keyword.other.DML.4gl"
 				},
 				{
-					"comment": "Keywords2",
-					"match": "(?i)(sleep|options|attributes|attribute|input|no wrap|(\\s|^)menu|command|end menu|(\\s|^)on every|(\\s|^)on key|(\\s|^)last key|after|group|skip|lines|field|input|before|row|infield|next field|lock mode)",
-					"name": "keyword.other.source.4GL"
+					"comment": "JOIN variants",
+					"match": "(?i)\\b((inner|cross|left(\\s+outer)?|right(\\s+outer)?|outer|natural(\\s+(left|right)(\\s+outer)?)?)\\s+join|join)\\b",
+					"name": "keyword.other.DML.4gl"
 				},
 				{
-					"comment": "Control",
-					"match": "(?i)((\\s|^)case(\\s*|$)|continue (.*)|when |otherwise|end case|while |end while|(\\s|^)for(\\s|$)|foreach |(\\s|^)into |end for(each)?|(\\s|^)if(?=\\s+|$)|then|(\\s+|^)else(\\s+|$)|end if|return(\\s+|$)|(\\s+|$)exit (.*))",
-					"name": "keyword.control.source.4GL"
+					"comment": "Sort order",
+					"match": "(?i)\\b(asc|desc|ascending|descending)\\b",
+					"name": "keyword.other.DML.4gl"
 				},
 				{
-					"comment": "Keywords",
-					"match": "(?i)( between |call(?=\\s+|$)|form(?=\\s+|$)|comment(?=\\s+|$)| clipped|(\\s|^)close\\s+(form|window)*|interrupt|(\\s|^)create\\s+(temp)\\s+?(table|index|unique index)(?=\\s+|$)|database |\\s+returning |declare\\s+|delete(?=\\s|$)|display\\s+|by name\\s+|((\\s|^)drop\\s+(table|index)(\\s|$))|((\\s|^)fetch((\\s+|$)|(\\s+(first|last)\\s+)))|(\\s|^)from(\\s+|$)|(\\s+|^)free\\s+|group by\\s|(\\s+|^)(desc|asc)(\\s+|$)|(\\s|^)insert\\s+into(\\s+|$)|((scroll)* cursor(?=\\s)(\\swith hold)*)|((top|right|bottom|left)\\s+margin)|page length|(\\s|^)order\\s+external\\s+by*|(\\s|^)open\\s+(form|window|clear|next)*|(\\s|^)prepare |(^|\\s)prompt\\s|(^|\\s)insert key\\s|(^|\\s)line\\s|clear|(^|\\s)form\\s|(^|\\s)input by name(\\s|$)|((start|finish)\\s+report)|(\\s|^)select(\\s+|$)|(\\s|^)union(\\s+|$)| in | into temp | spaces|(\\s|^)update(\\s+|$)|(\\s|^)where(\\s+|$)|(\\s|^)output(?=\\s|$)|(?<=\\s)to(?=\\s|$)|order by|format( |$)|(first\\s+)*page header|before group of|on (every|last) row|after group of| using |begin\\s+work|commit\\s+work|with no log|rollback\\s+work|(\\s+|^)values|((\\s|^)whenever\\s+(any\\s+)?error\\s+(continue|stop)(\\s|$))|(\\s|^)run\\s+|end input)",
-					"name": "keyword.other.source.4GL"
+					"comment": "Cursor statements",
+					"match": "(?i)\\b(declare|cursor|scroll\\s+cursor|with\\s+hold|open|fetch(\\s+(first|last|next|previous|prior|relative|absolute))?|close|free|prepare|execute|foreach)\\b",
+					"name": "keyword.other.DML.4gl"
 				},
 				{
-					"comment": "Constant numeric",
-					"match": "(?<!\\w)((0(x|X)[0-9a-fA-F]+)|([0-9]+(\\.[0-9]+)?))",
-					"name": "constant.numeric.source.4GL"
+					"comment": "DDL statements",
+					"match": "(?i)\\b(create(\\s+temp)?\\s+(table|index|unique\\s+index)|drop\\s+(table|index)|alter\\s+table)\\b",
+					"name": "keyword.other.DDL.4gl"
 				},
 				{
-					"comment": "Storage types",
-					"match": "(?i)(\\schar(?=[\\s\\(,$]))|((\\s|^)date|\\s+decimal|define\\s+|\\s+smallint|datetime|\\s+integer|\\s+float|let |\\s+record\\s+|like |(end)*\\s+record|(((^|\\s+)|(end\\s+))globals)|\\s+array|\\s+like| of |defer interrupt)",
-					"name": "storage.type.source.4GL"
+					"comment": "INTO keyword",
+					"match": "(?i)\\b(into)\\b",
+					"name": "keyword.other.DML.4gl"
+				}
+			]
+		},
+		"screen-io": {
+			"patterns": [
+				{
+					"comment": "Screen I/O statements",
+					"match": "(?i)\\b(display(\\s+by\\s+name|\\s+form)?|input(\\s+by\\s+name)?|end\\s+input|construct(\\s+by\\s+name)?|end\\s+construct|message|error|prompt|sleep|clear(\\s+(form|screen|window))?)\\b",
+					"name": "keyword.other.io.4gl"
 				},
 				{
-					"comment": "Storage types 1",
-					"match": "(?i)((of)*record|\\s+varchar)",
-					"name": "storage.type.source.4GL"
+					"comment": "Window/Form management",
+					"match": "(?i)\\b(open\\s+(window|form)|close\\s+(window|form)|current\\s+window|display\\s+form|move\\s+window|hide\\s+window)\\b",
+					"name": "keyword.other.io.4gl"
 				},
 				{
-					"comment": "Some functions",
-					"match": "(?i)((sum|count|decode|weekday|mdy|upper|upshift|lower|avg|nvl|max|min|length|day|month|year|p_open|p_close)(?=\\s*\\(.*?\\)))",
-					"name": "storage.type.function.source.4GL"
+					"comment": "Menu statements",
+					"match": "(?i)\\b(menu|command|end\\s+menu)\\b",
+					"name": "keyword.other.io.4gl"
 				},
 				{
-					"comment": "Some functions",
-					"match": "(?i)((?<=\\s)(print|column|page|trailer))",
-					"name": "storage.type.function.source.4GL"
+					"comment": "Field handling",
+					"match": "(?i)\\b(field|infield|next\\s+field|before|after|on\\s+key|on\\s+every|attribute|attributes|no\\s+wrap|formonly)\\b",
+					"name": "keyword.other.io.4gl"
+				}
+			]
+		},
+		"report-keywords": {
+			"patterns": [
+				{
+					"comment": "Report statements",
+					"match": "(?i)\\b(start\\s+report|finish\\s+report|output(\\s+to)?|format|(first\\s+)?page\\s+header|page\\s+trailer|before\\s+group\\s+of|after\\s+group\\s+of|on\\s+every\\s+row|on\\s+last\\s+row|print|skip|column|page\\s+length|(top|bottom|left|right)\\s+margin)\\b",
+					"name": "keyword.other.report.4gl"
+				}
+			]
+		},
+		"transactions": {
+			"patterns": [
+				{
+					"comment": "Transaction control",
+					"match": "(?i)\\b(begin\\s+work|commit\\s+work|rollback\\s+work|with\\s+no\\s+log)\\b",
+					"name": "keyword.other.transaction.4gl"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"comment": "General keywords",
+					"match": "(?i)\\b(database|define|let|call|returning|run|set|initialize|to|of|by\\s+name|using|clipped|spaces|wordwrap|options|load|unload(\\s+to)?|lock\\s+mode|interrupt|lines|line|form|at)\\b",
+					"name": "keyword.other.4gl"
+				}
+			]
+		},
+		"storage-types": {
+			"patterns": [
+				{
+					"comment": "Data types",
+					"match": "(?i)\\b(char|varchar|nchar|nvarchar|string|integer|int|smallint|bigint|tinyint|serial|float|smallfloat|double|decimal|money|date|datetime|interval|byte|text|boolean|record|end\\s+record|array|like)\\b",
+					"name": "storage.type.4gl"
+				}
+			]
+		},
+		"builtin-functions": {
+			"patterns": [
+				{
+					"comment": "Built-in 4GL library functions",
+					"match": "(?i)\\b(arg_val|arr_count|arr_curr|downshift|err_get|err_print|err_quit|errorlog|fgl_drawbox|fgl_getenv|fgl_getkey|fgl_keyval|fgl_lastkey|fgl_scr_size|fgl_setcurrline|fgl_dynarr_extentsize|fgl_isdynarr_allocated|field_touched|get_fldbuf|infield|length|num_args|ord|scr_line|set_count|showhelp|startlog|upshift|cursor_name|sqlexit|trim)(?=\\s*\\()",
+					"name": "support.function.4gl"
+				}
+			]
+		},
+		"system-functions": {
+			"patterns": [
+				{
+					"comment": "Date/Time and conversion functions",
+					"match": "(?i)\\b(date|day|month|year|weekday|mdy|extend|ascii|decode|nvl|upper|lower)(?=\\s*\\()",
+					"name": "support.function.4gl"
+				}
+			]
+		},
+		"aggregate-functions": {
+			"patterns": [
+				{
+					"comment": "SQL aggregate functions",
+					"match": "(?i)\\b(sum|count|avg|max|min)(?=\\s*\\()",
+					"name": "support.function.aggregate.4gl"
+				}
+			]
+		},
+		"builtin-variables": {
+			"patterns": [
+				{
+					"comment": "Built-in variables and constants",
+					"match": "(?i)\\b(status|sqlca|sqlcode|sqlerrd|sqlawarn|int_flag|quit_flag|today|time|current|pageno|lineno)\\b",
+					"name": "variable.language.4gl"
+				}
+			]
+		},
+		"display-attributes": {
+			"patterns": [
+				{
+					"comment": "Display color and style attributes",
+					"match": "(?i)\\b(black|blue|cyan|green|magenta|red|white|yellow|bold|dim|invisible|normal|reverse|underline|blink|border)\\b",
+					"name": "support.constant.attribute.4gl"
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"comment": "Language constants",
+					"match": "(?i)\\b(null|true|false|notfound|dirty\\s+read)\\b",
+					"name": "constant.language.4gl"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"comment": "Comparison and arithmetic operators",
+					"match": "(==|!=|<>|<=|>=|<|>|=|\\+|-|\\*|/|\\|\\|)",
+					"name": "keyword.operator.4gl"
 				},
 				{
-					"comment": "Some functions system",
-					"match": "(?i)((fgl_lastkey|fgl_keyval|arr_curr|scr_line|set_count|arg_val)(?=\\s*\\(.*?\\)))",
-					"name": "variable.parameter.function.source.4GL"
+					"comment": "Logical and keyword operators",
+					"match": "(?i)\\b(and|or|not|mod|is\\s+not\\s+null|is\\s+null|is|matches|between)\\b",
+					"name": "keyword.operator.logical.4gl"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"comment": "Hexadecimal numbers",
+					"match": "\\b0[xX][0-9a-fA-F]+\\b",
+					"name": "constant.numeric.hex.4gl"
 				},
 				{
-					"comment": "Variables",
-					"match": "(?i)((\\s|^)time|today|message |without|defaults|unload to)",
-					"name": "variable.parameter.function.source.4GL"
-				},
+					"comment": "Decimal numbers",
+					"match": "\\b[0-9]+(\\.[0-9]+)?\\b",
+					"name": "constant.numeric.4gl"
+				}
+			]
+		},
+		"record-access": {
+			"patterns": [
 				{
-					"comment": "Variables provided by de language2",
-					"match": "(?i)(\\s|^)(error|on|off)(\\s|^)",
-					"name": "variable.parameter.function.source.4GL"
-				},
-				{
-					"comment": "Variables provided by de language",
-					"match": "(?i)(\\s*|^)(status|sqlcode|clipped|int_flag|explain|sqlerrd|isolation|wait|today|pageno)(\\s*|^)",
-					"name": "variable.parameter.function.source.4GL"
-				},
-
-				{
+					"comment": "Record field access (record.field)",
+					"match": "\\b(\\w+)(\\.)(\\w+)\\b",
 					"captures": {
-						"1": {
-							"name": "storage.type.function.source.4GL"
-						}
-					},
-					"comment": "Main function definition",
-					"match": "(?i)((\\s*|$)main)(\\s*|$)",
-					"name": "meta.function.source.4GL"
-				},
+						"1": { "name": "variable.other.record.4gl" },
+						"2": { "name": "punctuation.accessor.4gl" },
+						"3": { "name": "variable.other.field.4gl" }
+					}
+				}
+			]
+		},
+		"database-qualify": {
+			"patterns": [
 				{
-					"comment": "Functions definitions",
-					"match": "(?i)(end function|end main|end report)(\\s*|$)",
-					"name": "storage.type.function.source.4GL"
-				},
-				{
+					"comment": "Database qualification (db:table)",
+					"match": "(\\w+)(:)(\\w+)",
 					"captures": {
-						"1":
-							{"name": "variable.language.source.4GL"},
-						"2":
-							{"name": "constant.numeric.source.4GL"},
-						"3":
-							{"name": "entity.name.function.source.4GL"}
-					},
-					"comment": "Record usage",
-					"match": "([\\w\\-_]+\\.)",
-					"name": "constant.language.source.4GL"
-				},
-				{
-					"captures": {
-						"1": {
-							"name": "variable.parameter.function.source.4GL"
-						},
-						"2": {
-							"name": "variable.parameter.function.source.4GL"
-						},
-						"3": {
-							"name": "entity.name.function.source.4GL"
-						}
-					},
-					"comment": "database ",
-					"match": "([\\w\\-_]+\\:)",
-					"name": "constant.language.source.4GL"
+						"1": { "name": "entity.name.database.4gl" },
+						"2": { "name": "punctuation.separator.4gl" },
+						"3": { "name": "entity.name.table.4gl" }
+					}
 				}
 			]
 		}
-	},
-	"scopeName": "source.4gl"
+	}
 }

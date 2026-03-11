@@ -1,37 +1,46 @@
 {
     "comments": {
-        // symbol used for single line comment. Remove this entry if your language does not support line comments
         "lineComment": "#",
-        // symbols used for start and end a block comment. Remove this entry if your language does not support block comments
-        "blockComment": [ "{*", "*}" ]
+        "blockComment": [ "{", "}" ]
     },
-    // symbols used as brackets
     "brackets": [
         ["{", "}"],
         ["[", "]"],
         ["(", ")"]
     ],
-    // symbols that are auto closed when typing
     "autoClosingPairs": [
-        ["{", "}"],
-        ["[", "]"],
-        ["(", ")"],
-        ["\"", "\""],
-        ["'", "'"]
+        { "open": "{", "close": "}" },
+        { "open": "[", "close": "]" },
+        { "open": "(", "close": ")" },
+        { "open": "\"", "close": "\"", "notIn": ["string"] },
+        { "open": "'", "close": "'", "notIn": ["string"] }
     ],
-    // symbols that that can be used to surround a selection
     "surroundingPairs": [
         ["{", "}"],
         ["[", "]"],
         ["(", ")"],
         ["\"", "\""],
         ["'", "'"]
-	 ],
-	"folding": {
-		"offSide": true,
-		"markers": {
-			"start": "(^\\s*FUNCTION\\b|^\\s*MAIN\\b|^\\s*#\\s*region\\b)",
-			"end": "(^\\s*END\\s*FUNCTION\\b|^\\s*END\\s*MAIN\\b|^\\s*#\\s*endregion\\b)"
-		}
-	}
+    ],
+    "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
+    "indentationRules": {
+        "increaseIndentPattern": "(?i)^\\s*(MAIN|FUNCTION|REPORT|GLOBALS|IF|ELSE|WHILE|FOR|FOREACH|CASE|WHEN|OTHERWISE|MENU|COMMAND|INPUT|CONSTRUCT|FORMAT|PAGE\\s+HEADER|PAGE\\s+TRAILER|BEFORE\\s+GROUP|AFTER\\s+GROUP|ON\\s+EVERY|ON\\s+LAST|FIRST\\s+PAGE)\\b",
+        "decreaseIndentPattern": "(?i)^\\s*(END\\s+(MAIN|FUNCTION|REPORT|GLOBALS|IF|WHILE|FOR|FOREACH|CASE|MENU|INPUT|CONSTRUCT)|ELSE|OTHERWISE|WHEN|COMMAND|AFTER|BEFORE|ON)\\b"
+    },
+    "folding": {
+        "markers": {
+            "start": "(?i)^\\s*(FUNCTION|REPORT|MAIN|GLOBALS|IF|WHILE|FOR|FOREACH|CASE|MENU|INPUT|CONSTRUCT)\\b",
+            "end": "(?i)^\\s*END\\s+(FUNCTION|REPORT|MAIN|GLOBALS|IF|WHILE|FOR|FOREACH|CASE|MENU|INPUT|CONSTRUCT)\\b"
+        }
+    },
+    "onEnterRules": [
+        {
+            "beforeText": "(?i)^\\s*(IF|ELSE|WHILE|FOR|FOREACH|CASE|WHEN|OTHERWISE|MAIN|FUNCTION|REPORT|GLOBALS|MENU|COMMAND|INPUT|CONSTRUCT)\\b.*$",
+            "action": { "indent": "indent" }
+        },
+        {
+            "beforeText": "(?i)^\\s*END\\s+(IF|WHILE|FOR|FOREACH|CASE|MAIN|FUNCTION|REPORT|GLOBALS|MENU|INPUT|CONSTRUCT)\\b.*$",
+            "action": { "indent": "outdent" }
+        }
+    ]
 }

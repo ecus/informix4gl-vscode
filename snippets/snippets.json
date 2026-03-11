@@ -10,236 +10,396 @@
          "# OBJETIVO: ${2:objetivo}",
          "# DEPENDENCIAS: ",
          "#\t\t${3:dependencias}",
-         "###############################################################################",
          "###############################################################################"
       ],
-      "description": "Encabezado Bitacora para programas 4gl. EA."
+      "description": "Encabezado Bitacora para programas 4gl"
    },
    "seccion": {
       "prefix": "seccion",
       "body": [
          "#######################################",
-         "# ${0:Descripción}",
-         "#######################################\n"
+         "# ${0:Descripcion}",
+         "#######################################"
       ],
-      "description": "Sección definida"
+      "description": "Seccion definida"
    },
    "select": {
       "prefix": "select",
       "body": [
          "SELECT ${1:campos}",
-         "FROM   ${2:tablas}",
-         "WHERE  ${3:condicion}",
-         "AND    ${4:condicion}",
-         "ORDER BY ${5:nrocolumna}\n"
+         "  FROM ${2:tablas}",
+         " WHERE ${3:condicion}",
+         "   AND ${4:condicion}",
+         " ORDER BY ${5:nrocolumna}"
       ],
-      "description": "Escribe un SELECT con la estructura clasica con un ORDER BY columna o columnas identifacadas por el nro de columna, Forma de uso: campos,tablas y condiciones "
+      "description": "SELECT con ORDER BY"
    },
    "select into": {
       "prefix": "select into",
       "body": [
          "SELECT ${1:campos}",
-         "INTO   ${2:contenedor}",
-         "FROM   ${3:tablas}",
-         "WHERE  ${4:condicion}",
-         "AND    ${5:condicion}",
-         "ORDER BY ${6:nrocolumna}",
+         "  INTO ${2:variables}",
+         "  FROM ${3:tablas}",
+         " WHERE ${4:condicion}",
          "IF STATUS = NOTFOUND THEN",
-         "\t${7:#codigo}",
-         "END IF",
-         "\n"
+         "\t${5:codigo}",
+         "END IF"
       ],
-      "description": "Retorna los valores de un SELECT a un contenedor definido o variables indicadas."
+      "description": "SELECT INTO con verificacion de NOTFOUND"
    },
    "insert": {
       "prefix": "insert",
       "body": [
          "INSERT INTO ${1:tabla}",
-         "VALUES (${2:campos})",
-         "IF status < 0 THEN",
-         "\t${3:#codigo}",
-         "END IF",
-         "\n"
+         "VALUES (${2:valores})",
+         "IF STATUS < 0 THEN",
+         "\t${3:codigo}",
+         "END IF"
       ],
-      "description": "Insertar en la base de datos"
+      "description": "INSERT con verificacion de error"
    },
    "update": {
       "prefix": "update",
       "body": [
          "UPDATE ${1:tabla}",
-         "SET    \t${2:variables}",
-         "WHERE  ${3:condicion}",
-         "IF status < 0 THEN",
-         "\t${3:#codigo}",
-         "END IF",
-         "\n"
+         "   SET ${2:columna} = ${3:valor}",
+         " WHERE ${4:condicion}",
+         "IF STATUS < 0 THEN",
+         "\t${5:codigo}",
+         "END IF"
       ],
-      "description": "Actualizar en la base de datos"
+      "description": "UPDATE con verificacion de error"
    },
    "delete": {
       "prefix": "delete",
       "body": [
          "DELETE FROM ${1:tabla}",
-         "WHERE ${2:condicion}",
-         "IF status < 0 THEN",
-         "\t${3:#codigo}",
-         "END IF",
-         "\n"
+         " WHERE ${2:condicion}",
+         "IF STATUS < 0 THEN",
+         "\t${3:codigo}",
+         "END IF"
       ],
-      "description": "Borrar de la Base de datos"
+      "description": "DELETE con verificacion de error"
    },
    "if": {
       "prefix": "if",
       "body": [
-         "IF ${0:condicion} THEN",
-         "\t${1:#codigo}",
-         "END IF\n"
+         "IF ${1:condicion} THEN",
+         "\t${0}",
+         "END IF"
       ],
-      "description": "Condicion IF"
+      "description": "IF / THEN / END IF"
+   },
+   "ifelse": {
+      "prefix": "ifelse",
+      "body": [
+         "IF ${1:condicion} THEN",
+         "\t${2}",
+         "ELSE",
+         "\t${0}",
+         "END IF"
+      ],
+      "description": "IF / THEN / ELSE / END IF"
+   },
+   "while": {
+      "prefix": "while",
+      "body": [
+         "WHILE ${1:condicion}",
+         "\t${0}",
+         "END WHILE"
+      ],
+      "description": "WHILE / END WHILE"
+   },
+   "for": {
+      "prefix": "for",
+      "body": [
+         "FOR ${1:variable} = ${2:inicio} TO ${3:fin}",
+         "\t${0}",
+         "END FOR"
+      ],
+      "description": "FOR / END FOR"
    },
    "foreach": {
       "prefix": "foreach",
       "body": [
-         "FOREACH ${0:nombcursor} INTO ${2:record}",
-         "\t${1:#codigo}",
+         "FOREACH ${1:nombcursor} INTO ${2:record}.*",
+         "\t${0}",
          "END FOREACH"
       ],
-      "description": "Foreach en cursor"
+      "description": "FOREACH con cursor"
    },
    "foreach-using": {
-      "prefix": "foreach",
+      "prefix": "foreach using",
       "body": [
-         "FOREACH ${0:nombcursor} USING ${1:record} INTO ${3:record}",
-         "\t${2:#codigo}",
+         "FOREACH ${1:nombcursor} USING ${2:variable} INTO ${3:record}.*",
+         "\t${0}",
          "END FOREACH"
       ],
-      "description": "Foreach en cursor"
+      "description": "FOREACH con cursor y USING"
    },
    "case": {
       "prefix": "case",
       "body": [
-         "CASE ${0:variable} ",
-         "\tWHEN ${1:#valor}",
-         "\t\t${2:#codigo}",
+         "CASE ${1:variable}",
+         "\tWHEN ${2:valor}",
+         "\t\t${3}",
          "\tOTHERWISE",
-         "\t\t${3:#codigo}",
-         "END CASE",
-         "\n"
+         "\t\t${0}",
+         "END CASE"
       ],
-      "description": ""
+      "description": "CASE / WHEN / OTHERWISE / END CASE"
    },
    "cursor": {
       "prefix": "cursor",
       "body": [
-         "DECLARE ${1:nombcursor} CURSOR FOR ",
-         "\n"
+         "DECLARE ${1:nombcursor} CURSOR FOR",
+         "\tSELECT ${2:campos}",
+         "\t  FROM ${3:tabla}",
+         "\t WHERE ${4:condicion}"
       ],
-      "description": "Declaración de cursor generalmente va acompañado de un SELECT y un FOREACH"
+      "description": "DECLARE CURSOR FOR SELECT"
+   },
+   "scroll-cursor": {
+      "prefix": "scroll cursor",
+      "body": [
+         "DECLARE ${1:nombcursor} SCROLL CURSOR WITH HOLD FOR",
+         "\tSELECT ${2:campos}",
+         "\t  FROM ${3:tabla}",
+         "\t WHERE ${4:condicion}"
+      ],
+      "description": "DECLARE SCROLL CURSOR WITH HOLD"
    },
    "function": {
       "prefix": "function",
       "body": [
-         "FUNCTION ${1:nombrefuncion}(${2:parametros})",
-         "\tDEFINE \tl_resp\tCHAR(100),",
-         "\t\t\t${3:var}\t${4:tipo}",
-         "\t${5:#codigo}",
-         "\tRETURN l_resp",
-         "END FUNCTION\n"
+         "FUNCTION ${1:nombre}(${2:parametros})",
+         "\tDEFINE ${3:variable} ${4:tipo}",
+         "",
+         "\t${0}",
+         "",
+         "\tRETURN ${5:valor}",
+         "END FUNCTION"
       ],
-      "description": "Declara funcion basica"
-	},
-	"main": {
+      "description": "Declarar FUNCTION con DEFINE y RETURN"
+   },
+   "main": {
       "prefix": "main",
       "body": [
          "MAIN",
-         "\tDEFINE \tl_resp\tCHAR(100),",
-         "\t\t\t${3:var}\t${4:tipo}",
-         "\t${5:#codigo}",
-         "END MAIN\n"
+         "\tDEFER INTERRUPT",
+         "\tWHENEVER ERROR CONTINUE",
+         "",
+         "\t${0}",
+         "END MAIN"
       ],
-      "description": "Declara funcion basica"
-	},
-	"globals": {
+      "description": "Bloque MAIN con DEFER INTERRUPT"
+   },
+   "globals": {
       "prefix": "globals",
       "body": [
          "GLOBALS",
-         "\t${1:#codigo}",
-         "END GLOBALS\n"
+         "\tDEFINE ${1:variable} ${2:tipo}",
+         "\t${0}",
+         "END GLOBALS"
       ],
-      "description": "Declara variables globales"
+      "description": "Bloque GLOBALS"
    },
-   "record": {
+   "record-like": {
+      "prefix": "record like",
+      "body": [
+         "${1:variable} RECORD LIKE ${2:tabla}.*"
+      ],
+      "description": "RECORD LIKE tabla.*"
+   },
+   "record-custom": {
       "prefix": "record",
       "body": [
-         "${1:var} RECORD LIKE ${2:tabla}.*,",
-         "\n"
+         "${1:variable} RECORD",
+         "\t${2:campo} ${3:tipo},",
+         "\t${4:campo} ${5:tipo}",
+         "END RECORD"
       ],
-      "description": "declarar record like tabla"
+      "description": "RECORD con estructura propia"
    },
-   "recordvar": {
-      "prefix": "recordvar",
+   "define": {
+      "prefix": "define",
       "body": [
-         "${1:var} RECORD ",
-         "\t${2:variable}\t${3:tipo},",
-         "\t${4:variable}\t${5:tipo}",
-         "END RECORD\n"
+         "DEFINE ${1:variable} ${2:tipo}"
       ],
-      "description": "Declarar record con estructura propia"
+      "description": "DEFINE variable tipo"
+   },
+   "define-array": {
+      "prefix": "define array",
+      "body": [
+         "DEFINE ${1:variable} ARRAY[${2:size}] OF ${3:tipo}"
+      ],
+      "description": "DEFINE variable ARRAY[n] OF tipo"
    },
    "error": {
       "prefix": "error",
       "body": [
          "ERROR \"${1:mensaje}\"",
-         "SLEEP ${2:sleep}\n"
+         "SLEEP ${2:2}"
       ],
-      "description": "Mostrar error con sleep"
+      "description": "ERROR con SLEEP"
    },
    "display": {
       "prefix": "display",
       "body": [
-         "DISPLAY \"${1:valor}\"",
-         "SLEEP ${2:sleep}\n"
+         "DISPLAY \"${1:valor}\""
       ],
-      "description": "Mostrar diplay con sleep"
+      "description": "DISPLAY valor"
    },
    "displaybyname": {
-      "prefix": "displaybyname",
+      "prefix": "display by name",
       "body": [
-         "DISPLAY BY NAME ${1:valor}",
-         "\n"
+         "DISPLAY BY NAME ${1:variable}"
       ],
-      "description": "Display by name"
+      "description": "DISPLAY BY NAME"
    },
    "message": {
       "prefix": "message",
       "body": [
          "MESSAGE \"${1:mensaje}\""
       ],
-      "description": "Mostrar un mensaje"
+      "description": "MESSAGE"
    },
    "prepared": {
       "prefix": "prepared",
       "body": [
          "PREPARE ${1:prep} FROM ${2:consulta}",
          "DECLARE ${3:curs} SCROLL CURSOR FOR ${1:prep}",
-         "OPEN    ${3:curs}",
+         "OPEN ${3:curs}",
          "FETCH ${3:curs} INTO ${4:record}.*",
-         "IF status = NOTFOUND THEN",
-         "\t\tERROR \"REGISTRO NO ENCONTRADO\"",
+         "IF STATUS = NOTFOUND THEN",
+         "\tERROR \"Registro no encontrado\"",
          "\tRETURN",
          "END IF",
-         "\t\t${5:#codigo}",
+         "${0}",
          "CLOSE ${3:curs}",
-         "FREE  ${3:curs}",
-         "\n"
+         "FREE ${3:curs}"
       ],
-      "description": "Define un prepared statment "
+      "description": "PREPARE / DECLARE SCROLL CURSOR / OPEN / FETCH / CLOSE / FREE"
    },
-   "": {
-      "prefix": "",
+   "open-window": {
+      "prefix": "open window",
       "body": [
-         ""
+         "OPEN WINDOW ${1:w1} AT ${2:2},${3:2}",
+         "\tWITH ${4:20} ROWS, ${5:78} COLUMNS",
+         "\tATTRIBUTE(BORDER)"
       ],
-      "description": ""
+      "description": "OPEN WINDOW con posicion y dimensiones"
+   },
+   "open-form": {
+      "prefix": "open form",
+      "body": [
+         "OPEN FORM ${1:f1} FROM \"${2:formname}\"",
+         "DISPLAY FORM ${1:f1}"
+      ],
+      "description": "OPEN FORM y DISPLAY FORM"
+   },
+   "input-by-name": {
+      "prefix": "input by name",
+      "body": [
+         "INPUT BY NAME ${1:variables}",
+         "\tBEFORE INPUT",
+         "\t\t${0}",
+         "\tAFTER INPUT",
+         "\t\tIF INT_FLAG THEN",
+         "\t\t\tLET INT_FLAG = FALSE",
+         "\t\t\tEXIT INPUT",
+         "\t\tEND IF",
+         "END INPUT"
+      ],
+      "description": "INPUT BY NAME con BEFORE/AFTER"
+   },
+   "menu": {
+      "prefix": "menu",
+      "body": [
+         "MENU \"${1:titulo}\"",
+         "\tCOMMAND \"${2:opcion1}\" \"${3:descripcion}\"",
+         "\t\t${0}",
+         "\tCOMMAND \"Salir\" \"Salir del menu\"",
+         "\t\tEXIT MENU",
+         "END MENU"
+      ],
+      "description": "MENU con COMMAND"
+   },
+   "report": {
+      "prefix": "report",
+      "body": [
+         "REPORT ${1:nombre}(${2:parametro})",
+         "\tDEFINE ${2:parametro} ${3:tipo}",
+         "",
+         "\tOUTPUT",
+         "\t\tLEFT MARGIN 0",
+         "\t\tPAGE LENGTH 66",
+         "",
+         "\tFORMAT",
+         "\t\tPAGE HEADER",
+         "\t\t\tPRINT COLUMN 1, \"${4:titulo}\"",
+         "\t\t\tSKIP 1 LINES",
+         "",
+         "\t\tON EVERY ROW",
+         "\t\t\tPRINT COLUMN 1, ${5:campo}",
+         "",
+         "\t\tON LAST ROW",
+         "\t\t\tSKIP 1 LINES",
+         "\t\t\tPRINT \"Total: \", COUNT(*)",
+         "END REPORT"
+      ],
+      "description": "REPORT con FORMAT, PAGE HEADER, ON EVERY ROW"
+   },
+   "begin-work": {
+      "prefix": "begin work",
+      "body": [
+         "BEGIN WORK",
+         "\t${0}",
+         "IF STATUS < 0 THEN",
+         "\tROLLBACK WORK",
+         "ELSE",
+         "\tCOMMIT WORK",
+         "END IF"
+      ],
+      "description": "BEGIN WORK / COMMIT / ROLLBACK"
+   },
+   "whenever": {
+      "prefix": "whenever",
+      "body": [
+         "WHENEVER ${1|ERROR,ANY ERROR|} ${2|CONTINUE,STOP,CALL ${3:funcion}|}"
+      ],
+      "description": "WHENEVER ERROR CONTINUE/STOP/CALL"
+   },
+   "construct": {
+      "prefix": "construct",
+      "body": [
+         "CONSTRUCT BY NAME ${1:variable} ON ${2:columnas}",
+         "\tBEFORE CONSTRUCT",
+         "\t\t${0}",
+         "\tAFTER CONSTRUCT",
+         "\t\tIF INT_FLAG THEN",
+         "\t\t\tLET INT_FLAG = FALSE",
+         "\t\t\tEXIT CONSTRUCT",
+         "\t\tEND IF",
+         "END CONSTRUCT"
+      ],
+      "description": "CONSTRUCT BY NAME con BEFORE/AFTER"
+   },
+   "load": {
+      "prefix": "load",
+      "body": [
+         "LOAD FROM \"${1:archivo}\" INSERT INTO ${2:tabla}"
+      ],
+      "description": "LOAD FROM archivo INSERT INTO tabla"
+   },
+   "unload": {
+      "prefix": "unload",
+      "body": [
+         "UNLOAD TO \"${1:archivo}\"",
+         "\tSELECT ${2:campos}",
+         "\t  FROM ${3:tabla}",
+         "\t WHERE ${4:condicion}"
+      ],
+      "description": "UNLOAD TO archivo SELECT"
    }
 }
