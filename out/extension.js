@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.activate = void 0;
+exports.activate = activate;
 const vscode = require("vscode");
 const path = require("path");
 // ─── Data: Built-in keywords, functions, types for Informix 4GL ───
@@ -576,5 +576,4 @@ function activate(context) {
     // File watcher for live index updates
     setupFileWatcher(context);
 }
-exports.activate = activate;
 //# sourceMappingURL=extension.js.map
