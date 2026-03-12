@@ -226,9 +226,9 @@
 					"match": "(?i)\\b(datetime|interval)\\s+(year|month|day|hour|minute|second|fraction)\\s+(to)\\s+(year|month|day|hour|minute|second|fraction(\\s*\\(\\s*\\d+\\s*\\))?)\\b",
 					"captures": {
 						"1": { "name": "storage.type.4gl" },
-						"2": { "name": "storage.type.qualifier.4gl" },
+						"2": { "name": "storage.type.4gl" },
 						"3": { "name": "keyword.other.4gl" },
-						"4": { "name": "storage.type.qualifier.4gl" }
+						"4": { "name": "storage.type.4gl" }
 					}
 				},
 				{
