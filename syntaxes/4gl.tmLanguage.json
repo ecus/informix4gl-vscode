@@ -222,6 +222,16 @@
 		"storage-types": {
 			"patterns": [
 				{
+					"comment": "DATETIME/INTERVAL type qualifiers (YEAR TO SECOND, HOUR TO MINUTE, etc.)",
+					"match": "(?i)\\b(datetime|interval)\\s+(year|month|day|hour|minute|second|fraction)\\s+(to)\\s+(year|month|day|hour|minute|second|fraction(\\s*\\(\\s*\\d+\\s*\\))?)\\b",
+					"captures": {
+						"1": { "name": "storage.type.4gl" },
+						"2": { "name": "storage.type.qualifier.4gl" },
+						"3": { "name": "keyword.other.4gl" },
+						"4": { "name": "storage.type.qualifier.4gl" }
+					}
+				},
+				{
 					"comment": "Data types",
 					"match": "(?i)\\b(char(acter)?|varchar|nchar|nvarchar|string|integer|int|smallint|bigint|tinyint|serial|float|smallfloat|double(\\s+precision)?|real|decimal|dec|numeric|money|date|datetime|interval|byte|text|boolean|record|end\\s+record|array|like)\\b",
 					"name": "storage.type.4gl"
