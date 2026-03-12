@@ -1,7 +1,5 @@
 # Informix `4gl` 
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/ecus/informix4gl-vscode)
-
 ## Sintaxis para Informix `4gl`
 
   - Syntax highlighting 
