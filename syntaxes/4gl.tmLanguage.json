@@ -4,27 +4,69 @@
 	"foldingStartMarker": "(^\\s*(FUNCTION|REPORT|MAIN|GLOBALS|IF|WHILE|FOR|FOREACH|CASE|MENU|INPUT|CONSTRUCT)\\b)",
 	"foldingStopMarker": "(^\\s*END\\s+(FUNCTION|REPORT|MAIN|GLOBALS|IF|WHILE|FOR|FOREACH|CASE|MENU|INPUT|CONSTRUCT)\\b)",
 	"patterns": [
-		{ "include": "#comments" },
-		{ "include": "#strings" },
-		{ "include": "#funcion-declaracion" },
-		{ "include": "#sql-dml" },
-		{ "include": "#control-flow" },
-		{ "include": "#error-handling" },
-		{ "include": "#screen-io" },
-		{ "include": "#report-keywords" },
-		{ "include": "#transactions" },
-		{ "include": "#keywords" },
-		{ "include": "#storage-types" },
-		{ "include": "#builtin-functions" },
-		{ "include": "#system-functions" },
-		{ "include": "#aggregate-functions" },
-		{ "include": "#builtin-variables" },
-		{ "include": "#display-attributes" },
-		{ "include": "#constants" },
-		{ "include": "#operators" },
-		{ "include": "#numbers" },
-		{ "include": "#record-access" },
-		{ "include": "#database-qualify" }
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#funcion-declaracion"
+		},
+		{
+			"include": "#sql-dml"
+		},
+		{
+			"include": "#control-flow"
+		},
+		{
+			"include": "#error-handling"
+		},
+		{
+			"include": "#screen-io"
+		},
+		{
+			"include": "#report-keywords"
+		},
+		{
+			"include": "#transactions"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#storage-types"
+		},
+		{
+			"include": "#builtin-functions"
+		},
+		{
+			"include": "#system-functions"
+		},
+		{
+			"include": "#aggregate-functions"
+		},
+		{
+			"include": "#builtin-variables"
+		},
+		{
+			"include": "#display-attributes"
+		},
+		{
+			"include": "#constants"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#record-access"
+		},
+		{
+			"include": "#database-qualify"
+		}
 	],
 	"repository": {
 		"comments": {
@@ -42,7 +84,9 @@
 					"begin": "\\{",
 					"end": "\\}",
 					"captures": {
-						"0": { "name": "punctuation.definition.comment.4gl" }
+						"0": {
+							"name": "punctuation.definition.comment.4gl"
+						}
 					}
 				}
 			]
@@ -53,8 +97,16 @@
 					"name": "string.quoted.double.4gl",
 					"begin": "\"",
 					"end": "\"",
-					"beginCaptures": { "0": { "name": "punctuation.definition.string.begin.4gl" } },
-					"endCaptures": { "0": { "name": "punctuation.definition.string.end.4gl" } },
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.4gl"
+						}
+					},
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.4gl"
+						}
+					},
 					"patterns": [
 						{
 							"name": "constant.character.escape.4gl",
@@ -66,8 +118,16 @@
 					"name": "string.quoted.single.4gl",
 					"begin": "'",
 					"end": "'",
-					"beginCaptures": { "0": { "name": "punctuation.definition.string.begin.4gl" } },
-					"endCaptures": { "0": { "name": "punctuation.definition.string.end.4gl" } },
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.4gl"
+						}
+					},
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.4gl"
+						}
+					},
 					"patterns": [
 						{
 							"name": "constant.character.escape.4gl",
@@ -80,14 +140,31 @@
 		"funcion-declaracion": {
 			"patterns": [
 				{
-					"comment": "Function/Report declaration",
+					"comment": "Function/Report declaration (multiline support)",
 					"name": "meta.function.4gl",
-					"match": "(?i)^\\s*(function|report)\\s+(\\w+)\\s*\\(([^)]*)\\)",
-					"captures": {
-						"1": { "name": "storage.type.function.4gl" },
-						"2": { "name": "entity.name.function.4gl" },
-						"3": { "name": "variable.parameter.4gl" }
-					}
+					"begin": "(?i)^\\s*(function|report)\\s+(\\w+)\\s*\\(",
+					"end": "\\)",
+					"beginCaptures": {
+						"1": {
+							"name": "storage.type.function.4gl"
+						},
+						"2": {
+							"name": "entity.name.function.4gl"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#comments"
+						},
+						{
+							"match": "\\w+",
+							"name": "variable.parameter.4gl"
+						},
+						{
+							"match": ",",
+							"name": "punctuation.separator.parameter.4gl"
+						}
+					]
 				},
 				{
 					"comment": "End function/report",
@@ -225,10 +302,18 @@
 					"comment": "DATETIME/INTERVAL type qualifiers (YEAR TO SECOND, HOUR TO MINUTE, etc.)",
 					"match": "(?i)\\b(datetime|interval)\\s+(year|month|day|hour|minute|second|fraction)\\s+(to)\\s+(year|month|day|hour|minute|second|fraction(\\s*\\(\\s*\\d+\\s*\\))?)\\b",
 					"captures": {
-						"1": { "name": "storage.type.4gl" },
-						"2": { "name": "storage.type.4gl" },
-						"3": { "name": "keyword.other.4gl" },
-						"4": { "name": "storage.type.4gl" }
+						"1": {
+							"name": "storage.type.4gl"
+						},
+						"2": {
+							"name": "storage.type.4gl"
+						},
+						"3": {
+							"name": "keyword.other.4gl"
+						},
+						"4": {
+							"name": "storage.type.4gl"
+						}
 					}
 				},
 				{
@@ -326,9 +411,15 @@
 					"comment": "Record field access (record.field)",
 					"match": "\\b(\\w+)(\\.)(\\w+)\\b",
 					"captures": {
-						"1": { "name": "variable.other.record.4gl" },
-						"2": { "name": "punctuation.accessor.4gl" },
-						"3": { "name": "variable.other.field.4gl" }
+						"1": {
+							"name": "variable.other.record.4gl"
+						},
+						"2": {
+							"name": "punctuation.accessor.4gl"
+						},
+						"3": {
+							"name": "variable.other.field.4gl"
+						}
 					}
 				}
 			]
@@ -339,9 +430,15 @@
 					"comment": "Database qualification (db:table)",
 					"match": "(\\w+)(:)(\\w+)",
 					"captures": {
-						"1": { "name": "entity.name.database.4gl" },
-						"2": { "name": "punctuation.separator.4gl" },
-						"3": { "name": "entity.name.table.4gl" }
+						"1": {
+							"name": "entity.name.database.4gl"
+						},
+						"2": {
+							"name": "punctuation.separator.4gl"
+						},
+						"3": {
+							"name": "entity.name.table.4gl"
+						}
 					}
 				}
 			]
